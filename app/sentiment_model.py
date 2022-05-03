@@ -1,8 +1,9 @@
-import joblib
 import os
-from tqdm import tqdm
 import urllib
+
+import joblib
 import streamlit as st
+from tqdm import tqdm
 
 
 def download_weights(url, out_path):
