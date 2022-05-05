@@ -1,0 +1,20 @@
+[intro]
+caption = "At a glance movie review insights, sentiment and summaries in 100 words or less"
+description = """
+Simply paste in a film review of your choice and get a 100 word summary, an overall sentiment of the review and a wordcloud of the descriptive terms used.
+"""
+track_experiments = """
+Check to get a link to download a report at the bottom of the page.
+The report contains the data, the plots and the config used to get them.
+Use it only when you actually want to save experiments, as it might make processings a bit slower.
+"""
+
+[defaults]
+review = """
+The jewel in Japanese animation studio Studio Ghibli’s crown, Spirited Away is a glorious bedtime story filled with soot sprites, monsters and phantasms—it’s a movie with the power to coax out the inner child in the most grown-up and jaded among us. A spin on Alice's Adventures in Wonderland (with the same invitation to follow your imagination), Spirited Away has been ushering audiences into its dream world for almost two decades and seems only to grow in stature each year, a tribute to its hand-drawn artistry. Trivia time: It remains Japan’s highest-grossing film ever, just ahead of Titanic.—Anna Smith.
+"""
+summary = """
+Studio Ghibli's Spirited Away is a bedtime story filled with soot sprites, monsters and phantasms. It remains Japan’s highest-grossing film ever, just ahead of Titanic . A spin on Alice's Adventures in Wonderland, it has been ushering audiences into its dream world for almost two decades and seems only to grow in stature each year, a tribute to its hand-drawn artistry. The movie is Japan's highest grossed film ever and remains Japan's most successful film ever.
+"""
+rouge_precision = 0.9
+rouge_f1 = 0.8

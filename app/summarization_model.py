@@ -1,5 +1,4 @@
-import matplotlib.pyplot as plt
-import streamlit as st
+import spacy
 from rouge import Rouge
 from transformers import pipeline
 from wordcloud import STOPWORDS, WordCloud
@@ -23,27 +22,30 @@ def abstractive_summarization(sample):
     summary = summary_cleaner(summary)
     rouge = Rouge()
     rouge_score = rouge.get_scores(summary, sample)
-    rouge_score_precision = rouge_score[0].get('rouge-2').get('p')
-    rouge_score_precision = round(rouge_score_precision, 2)
-    rouge_score_f1 = rouge_score[0].get('rouge-2').get('f')
-    rouge_score_f1 = round(rouge_score_f1, 2)
-    st.markdown("#### Here's your Abstract Summary")
-    st.write(summary)
-    st.write(f"The Rouge Precision Score is: {rouge_score_precision}")
-    st.write(f"The Rouge F1 score is: {rouge_score_f1}")
-    st.write(f"Your text's length is: {len(sample)}")
-    st.write(f"Summarized text length is: {len(summary)}")
+    rouge_precision = rouge_score[0].get('rouge-2').get('p')
+    rouge_precision = round(rouge_precision, 2)
+    rouge_f1 = rouge_score[0].get('rouge-2').get('f')
+    rouge_f1 = round(rouge_f1, 2)
+
+    return summary, rouge_precision, rouge_f1
 
 
-def wordcloud_gen(sample):
+def wordcloud_gen(sample, model='en_core_web_md'):
+    nlp = spacy.load(model)
+    text = nlp(sample)
+    descriptive_list = []
+
+    for token in text:
+        if token.pos_ == 'ADJ' or 'ADV':
+            descriptive_list.append(str(token))
+
+    sample = " ".join(descriptive_list)
     stopwords = set(STOPWORDS)
-    wordcloud = WordCloud(width=800,
-                          height=300,
-                          background_color='white',
+    wordcloud = WordCloud(width=600,
+                          height=400,
+                          background_color="#3a4064",
+                          colormap="Pastel1",
                           stopwords=stopwords,
                           min_font_size=8).generate(sample)
-    fig = plt.figure(figsize=(4, 4), facecolor=None)
-    plt.axis("off")
-    plt.tight_layout(pad=0)
-    plt.imshow(wordcloud, interpolation='bilinear')
-    st.pyplot(fig)
+
+    return wordcloud

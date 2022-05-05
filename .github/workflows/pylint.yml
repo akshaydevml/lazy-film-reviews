@@ -25,5 +25,5 @@ jobs:
     - name: Lint
       run: |
         flake8 .
-        isort --check-only --diff app 
+        isort --check-only --diff app
         yapf -r -d app
