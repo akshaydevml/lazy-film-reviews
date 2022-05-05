@@ -54,8 +54,8 @@ def sidebar():
 
 
 def run_models(text):
-    if text == "":
-        st.error("Your input needs to be at least 150 words long")
+    if len(text.split(" ")) < 150:
+        st.error('Your input needs to be at least 150 words long')
     else:
         with st.spinner('Running Sentiment Model...'):
             # Sentiment analysis task
