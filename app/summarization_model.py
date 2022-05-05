@@ -15,10 +15,11 @@ def summary_cleaner(summary):
 
 def abstractive_summarization(sample):
     abstractive_summarizer = pipeline('summarization')
-    abstract_summary = abstractive_summarizer(sample,
-                                              min_length=100,
-                                              max_length=120,
-                                              num_return_sequences=4)
+    abstract_summary = abstractive_summarizer(
+        sample,
+        min_length=100,
+        max_length=120,
+    )
     summary = abstract_summary[0].get('summary_text')
     summary = summary_cleaner(summary)
     rouge = Rouge()

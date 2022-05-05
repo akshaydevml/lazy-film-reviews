@@ -25,6 +25,7 @@ def sentiment_model(sample):
     if not os.path.exists(weights_file):
         url = "https://api.wandb.ai/files/akshaydevwandb/uncategorized\
         /2hldjwkn/movie_sentiment.joblib"
+
         download_weights(url, ".")
         print('It worked!')
 

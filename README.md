@@ -4,7 +4,7 @@
 [![python lint](https://github.com/xinntao/BasicSR/actions/workflows/pylint.yml/badge.svg)](.github/workflows/pylint.yml)
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/yourGitHubName/yourRepo/yourApp/)
 
-### Simply paste in a film review of your choice and get a 100 word summary, an overall sentiment of the review and a wordcloud of the descriptive terms used.
+### Lazy Film Reviews uses a transformer model for summarization from HuggingFace to generate concise summaries of film reviews. It also scores the sentiment of the review using a sci-kit learn LinearSVC model, trained on the classic IMDB dataset. A wordcloud containing the descriptive words used in the review(eg:adjectives) is also displayed. The Streamlit library is used to create the web app.
 
 <br>
 
