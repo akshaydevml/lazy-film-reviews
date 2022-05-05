@@ -7,3 +7,4 @@ rouge~=1.0.1
 scikit-learn~=0.23
 joblib
 tqdm
+clean-text

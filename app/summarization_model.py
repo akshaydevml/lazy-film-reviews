@@ -1,15 +1,19 @@
 import spacy
+from cleantext import clean
 from rouge import Rouge
 from transformers import pipeline
 from wordcloud import STOPWORDS, WordCloud
 
 
 def summary_cleaner(summary):
+    summary = clean(summary, lower=False)
     summary = summary.split('. ')
     if summary[-1][-1] != '.':
         summary.pop(-1)
-    summary = ". ".join(summary) + '.'
-    return summary
+        summary = ". ".join(summary) + '.'
+        return summary
+    else:
+        return ". ".join(summary)
 
 
 def abstractive_summarization(sample):
