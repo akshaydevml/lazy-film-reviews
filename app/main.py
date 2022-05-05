@@ -43,7 +43,7 @@ def sidebar():
         "[<img src='https://img.shields.io/badge/"
         "akshay--dev--karama-0077B5?style=social&logo=linkedin&logoColor=blue'"
         " class='img-fluid' height=17>](https://www.linkedin.com/in/"
-        "akshay--dev--karama)",
+        "akshay-dev-karama)",
         unsafe_allow_html=True)
 
     side_r3_c4.markdown(
@@ -54,18 +54,21 @@ def sidebar():
 
 
 def run_models(text):
-    with st.spinner('Running Sentiment Model...'):
-        # Sentiment analysis task
-        st.session_state.sentiment = sentiment_model(text)
+    if text == "":
+        st.error("Your input needs to be at least 150 words long")
+    else:
+        with st.spinner('Running Sentiment Model...'):
+            # Sentiment analysis task
+            st.session_state.sentiment = sentiment_model(text)
 
-    with st.spinner('Running Summarization Model...'):
-        # Summarization task
-        (st.session_state.summary, st.session_state.rouge_precision,
-         st.session_state.rouge_f1) = abstractive_summarization(text)
+        with st.spinner('Running Summarization Model...'):
+            # Summarization task
+            (st.session_state.summary, st.session_state.rouge_precision,
+             st.session_state.rouge_f1) = abstractive_summarization(text)
 
-    with st.spinner('Generating Word Cloud...'):
-        # Wordcloud generation task
-        st.session_state.wordcloud = wordcloud_gen(text)
+        with st.spinner('Generating Word Cloud...'):
+            # Wordcloud generation task
+            st.session_state.wordcloud = wordcloud_gen(text)
 
 
 def body():
@@ -84,7 +87,7 @@ def body():
                            value=config["defaults"]["review"],
                            max_chars=4000,
                            height=700,
-                           help="Press the generate button")
+                           help="Press 'Generate' after entering a review")
     r1_c1.write("")
 
     st.empty()

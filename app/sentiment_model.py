@@ -27,7 +27,14 @@ def sentiment_model(sample):
     if not os.path.exists(weights_file):
         download_weights(url, ".")
 
-    sentiment_analysis = joblib.load(open(weights_file, 'rb'))
+    try:
+        sentiment_analysis = joblib.load(open(weights_file, 'rb'))
+    except Exception as e:
+        print("Couldn't read model weights:", e)
+        print("Downloading weights again.")
+        download_weights(url, ".")
+        sentiment_analysis = joblib.load(open(weights_file, 'rb'))
+
     prediction = sentiment_analysis.predict([sample])
     prediction = str(prediction[0])
 
