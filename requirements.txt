@@ -10,3 +10,4 @@ joblib
 tqdm
 clean-text
 click==8
+numpy
