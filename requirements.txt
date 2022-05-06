@@ -9,3 +9,4 @@ scikit-learn
 joblib
 tqdm
 clean-text
+click==8
