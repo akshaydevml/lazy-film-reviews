@@ -11,10 +11,16 @@ Use it only when you actually want to save experiments, as it might make process
 
 [defaults]
 review = """
-The jewel in Japanese animation studio Studio Ghibli’s crown, Spirited Away is a glorious bedtime story filled with soot sprites, monsters and phantasms—it’s a movie with the power to coax out the inner child in the most grown-up and jaded among us. A spin on Alice's Adventures in Wonderland (with the same invitation to follow your imagination), Spirited Away has been ushering audiences into its dream world for almost two decades and seems only to grow in stature each year, a tribute to its hand-drawn artistry. Trivia time: It remains Japan’s highest-grossing film ever, just ahead of Titanic.—Anna Smith.
+In the garden of wonderment that is the body of work by the animation master Hayao Miyazaki, his 2001 gem 'Spirited Away' is at once one of his most accessible films to a Western audience and the one most distinctly rooted in Japanese culture and lore. The tale of Chihiro, a 10 year old girl who resents being moved away from all her friends, only to find herself working in a bathhouse for the gods, doesn’t just use its home country’s fraught relationship with deities as a backdrop. Never remotely didactic, the film is ultimately a self-fulfilment drama that touches on religious, ethical, ecological and psychological issues. 
+
+It’s also a fine children’s film, the kind that elicits a deepening bond across repeat viewings and the passage of time, mostly because Miyazaki refuses to talk down to younger viewers. That’s been a constant in all of his filmography, but it’s particularly conspicuous here because the stakes for its young protagonist are bigger than in most of his previous features aimed at younger viewers. It involves conquering fears and finding oneself in situations where safety is not a given.
+
+There are so many moving parts in Spirited Away, from both a thematic and technical point of view, that pinpointing what makes Spirited Away stand out from an already outstanding body of work becomes as challenging as a meeting with Yubaba. But I think it comes down to an ability to deal with heady, complex subject matter from a young girl's perspective without diluting or lessening its resonance. Miyazaki has made a loopy, demanding work of art that asks your inner child to come out and play. There are few high-wire acts in all of movie-dom as satisfying as that.
 """
 summary = """
-Studio Ghibli's Spirited Away is a bedtime story filled with soot sprites, monsters and phantasms. It remains Japan’s highest-grossing film ever, just ahead of Titanic . A spin on Alice's Adventures in Wonderland, it has been ushering audiences into its dream world for almost two decades and seems only to grow in stature each year, a tribute to its hand-drawn artistry. The movie is Japan's highest grossed film ever and remains Japan's most successful film ever.
+'Spirited Away' is at once one of the most accessible films to a Western audience. It's also a fine children's film, the kind that elicits a bond across repeat viewings and the passage of time. There are few high-wire acts in all of movie-related films as satisfying as that. The film is about a 10-year-old girl who finds herself in a relationship with the gods and finds herself at the center of her own life.
 """
 rouge_precision = 0.9
 rouge_f1 = 0.8
+input_count = 280
+summary_count = 76

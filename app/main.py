@@ -4,9 +4,11 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import toml
 from sentiment_model import sentiment_model
-from summarization_model import abstractive_summarization, wordcloud_gen
+from summarization_model import (abstractive_summarization, count_alpha_tokens,
+                                 wordcloud_gen)
 
 st.set_page_config(page_title='Lazy Film Summaries',
+                   page_icon="popcorn-favicon.png",
                    layout="wide",
                    initial_sidebar_state="expanded")
 
@@ -22,34 +24,37 @@ config = load_config("config/app_config.toml")
 
 def sidebar():
     st.sidebar.image("popcorn.png", use_column_width=True)
-    _, side_r1_c2, _ = st.sidebar.columns([0.80, 2, 1])
-    side_r1_c2.text("")
-    side_r1_c2.text("")
-    side_r1_c2.text("")
-    side_r1_c2.markdown(
-        "[![Foo](https://img.shields.io/badge/view%20in%20"
-        "github-%23121011.svg?style=for-the-badge&logo=github&"
-        "logoColor=white)](https://github.com/akshaydevml/lazy-film-reviews)")
-
-    side_r1_c2.write("")
-    side_r1_c2.write("")
-
-    _, side_r2_c2, _ = st.sidebar.columns([5.8, 6, 4])
-    side_r2_c2.caption("Contributors")
-
-    _, side_r3_c2, _, side_r3_c4, _ = st.sidebar.columns([0.5, 7, 0.5, 7, 2])
-
-    side_r3_c2.markdown(
-        "[<img src='https://img.shields.io/badge/"
-        "akshay--dev--karama-0077B5?style=social&logo=linkedin&logoColor=blue'"
-        " class='img-fluid' height=17>](https://www.linkedin.com/in/"
-        "akshay-dev-karama)",
+    st.sidebar.text("")
+    st.sidebar.markdown(
+        "<h5 style='text-align: center; font-weight: 300; "
+        "color: #8be9fd;'><i>pour l'amour du cinéma</i></h5>",
         unsafe_allow_html=True)
 
-    side_r3_c4.markdown(
-        "[<img src='https://img.shields.io/badge/sreevishnu--damodaran-"
-        "0077B5?style=social&logo=linkedin&logoColor=blue' class='img-fluid'"
-        " height=17>](https://www.linkedin.com/in/sreevishnu-damodaran)",
+    st.sidebar.text("")
+    st.sidebar.write("")
+    st.sidebar.markdown(
+        "<h5 style='text-align: center;'>"
+        "<a href='https://github.com/akshaydevml/lazy-film-reviews'>"
+        "<img src='https://img.shields.io/badge/view%20in%20"
+        "github-%23121011.svg?style=for-the-badge&logo=gitshub&"
+        "logoColor=white'></a></h5>",
+        unsafe_allow_html=True)
+
+    st.sidebar.write("")
+    st.sidebar.markdown(
+        "<h5 style='text-align: center; color: gray;'>"
+        "Contributors</h5>",
+        unsafe_allow_html=True)
+
+    st.sidebar.markdown(
+        "<h5 style='text-align: center;'>"
+        "<a href='https://www.linkedin.com/in/akshay-dev-karama'>"
+        "<img src='https://img.shields.io/badge/akshay--dev--karama-0077B5?"
+        "style=social&logo=linkedin&logoColor=blue' class='img-fluid'"
+        " height=17></a>&emsp;<a href='https://www.linkedin.com/in/"
+        "sreevishnu-damodaran'><img src='https://img.shields.io/badge/"
+        "sreevishnu--damodaran-0077B5?style=social&logo=linkedin&"
+        "logoColor=blue' class='img-fluid' height=17></a></h5>",
         unsafe_allow_html=True)
 
 
@@ -70,6 +75,11 @@ def run_models(text):
             # Wordcloud generation task
             st.session_state.wordcloud = wordcloud_gen(text)
 
+        with st.spinner('Getting Word Counts...'):
+            (st.session_state.input_count,
+             st.session_state.summary_count) = count_alpha_tokens(
+                 text, st.session_state.summary)
+
 
 def body():
     st.title('Lazy Film Reviews')
@@ -83,7 +93,7 @@ def body():
     r1_c1, _, r1_c2 = st.columns([3, 0.1, 2.2])
     r2_c1, r2_c2, r2_c3, r2_c4 = st.columns(4)
 
-    text = r1_c1.text_area(label="Enter any film review of choice",
+    text = r1_c1.text_area(label="Enter any film review of choice below:",
                            value=config["defaults"]["review"],
                            max_chars=4000,
                            height=700,
@@ -99,6 +109,8 @@ def body():
             'rouge_precision']
         st.session_state.rouge_f1 = config['defaults']['rouge_f1']
         st.session_state.wordcloud = wordcloud_gen(text)
+        st.session_state.input_count = config['defaults']['input_count']
+        st.session_state.summary_count = config['defaults']['summary_count']
 
     r1_c1.button(label="Generate", on_click=run_models, args=(text, ))
 
@@ -128,8 +140,8 @@ def body():
 
     r2_c1.metric("Rouge F1 Score", st.session_state.rouge_f1)
     r2_c2.metric("Rouge Precision Score", st.session_state.rouge_precision)
-    r2_c3.metric("Input Length", len(text))
-    r2_c4.metric("Summarized Length", len(st.session_state.summary))
+    r2_c3.metric("Input Word Count", st.session_state.input_count)
+    r2_c4.metric("Summary Word Count", st.session_state.summary_count)
 
 
 def main():

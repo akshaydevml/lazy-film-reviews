@@ -1,8 +1,12 @@
 import spacy
 from cleantext import clean
 from rouge import Rouge
+from spacy.attrs import IS_ALPHA
 from transformers import pipeline
 from wordcloud import STOPWORDS, WordCloud
+
+model = 'en_core_web_md'
+nlp = spacy.load(model, disable=['parser', 'ner'])
 
 
 def summary_cleaner(summary):
@@ -35,13 +39,25 @@ def abstractive_summarization(sample):
     return summary, rouge_precision, rouge_f1
 
 
-def wordcloud_gen(sample, model='en_core_web_md'):
-    nlp = spacy.load(model, disable=['parser', 'ner'])
-    text = nlp(sample)
+def count_alpha_tokens(sample, summary):
+    sample = clean(sample)
+    text_sample = nlp(sample)
+    input_count = text_sample.count_by(IS_ALPHA)[1]
+
+    summary = clean(summary)
+    text_summary = nlp(summary)
+    summary_count = text_summary.count_by(IS_ALPHA)[1]
+
+    return input_count, summary_count
+
+
+def wordcloud_gen(sample):
+    text = clean(sample, lower=False)
+    text = nlp(text)
     descriptive_list = []
 
     for token in text:
-        if token.pos_ == 'ADJ' or 'ADV':
+        if token.pos_ == 'ADJ' or token.pos_ == 'ADV':
             descriptive_list.append(str(token))
 
     sample = " ".join(descriptive_list)
