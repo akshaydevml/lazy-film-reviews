@@ -1,7 +1,7 @@
 import os
+import pickle
 import urllib
 
-import pickle
 from tqdm import tqdm
 
 
@@ -22,7 +22,7 @@ def download_weights(url, out_path):
 def sentiment_model(sample):
     weights_file = "movie_sentiment.pkl"
     url = "https://github.com/akshaydevml/lazy-film-reviews/releases/download"\
-    "/v0.0/movie_sentiment.pkl"
+          "/v0.0/movie_sentiment.pkl"
 
     if not os.path.exists(weights_file):
         download_weights(url, ".")
