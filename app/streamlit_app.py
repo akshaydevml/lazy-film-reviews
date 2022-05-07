@@ -131,11 +131,11 @@ def body():
     r1_c2.write("")
 
     r1_c2.markdown('##### Descriptive Terms')
-    fig = plt.figure(figsize=(4, 4), facecolor="#3a4064", edgecolor="#3a4064")
+    fig = plt.figure(figsize=(3, 3), facecolor="#3a4064", edgecolor="#3a4064")
     plt.axis("off")
     plt.tight_layout(pad=0)
     plt.imshow(st.session_state.wordcloud, interpolation='bilinear')
-    r1_c2.pyplot(fig)
+    r1_c2.pyplot(fig, clear_figure=True)
     r1_c2.write("")
 
     r2_c1.metric("Rouge F1 Score", st.session_state.rouge_f1)
