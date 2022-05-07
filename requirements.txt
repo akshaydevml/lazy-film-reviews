@@ -11,3 +11,5 @@ clean-text
 toml
 click==8.0.4
 typer==0.4.0
+torch
+torchvision
