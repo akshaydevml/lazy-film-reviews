@@ -21,7 +21,8 @@ def summary_cleaner(summary):
 
 
 def abstractive_summarization(sample):
-    abstractive_summarizer = pipeline('summarization')
+    abstractive_summarizer = pipeline('summarization',
+                                      model="sshleifer/distilbart-cnn-6-6")
     abstract_summary = abstractive_summarizer(
         sample,
         min_length=100,
