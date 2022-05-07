@@ -1,10 +1,14 @@
 # Lazy Film Reviews 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![python lint](https://github.com/xinntao/BasicSR/actions/workflows/pylint.yml/badge.svg)](.github/workflows/pylint.yml)
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/yourGitHubName/yourRepo/yourApp/)
+[![python lint](https://img.shields.io/badge/PyLint-passing-brightgreen)](.github/workflows/pylint.yml)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/akshaydevml/lazy-film-reviews/main/app/streamlit_app.py)
 
-Lazy Film Reviews uses a transformer model for summarization from HuggingFace to generate concise summaries of film reviews. It also scores the sentiment of the review using a sci-kit learn LinearSVC model, trained on the classic IMDB dataset. A wordcloud containing the descriptive words used in the review(eg:adjectives) is also displayed. The Streamlit library is used to create the web app.
+Lazy Film Reviews is a Streamlit app for summarizing and sentiment scoring a review, the idea is to input a film review and get a concise summary and a sentiment indicating whether the review was positive or negative. We also display a WordCloud containing descriptive terms used in the review and the ROUGE metric to gauge the effectiveness of the summary.
+
+We trained a custom sci-kit learn LinearSVC model on the classic IMDB dataset for sentiment scoring. More advanced DL models like BERT/Bi-Directional LSTM with attention were tried, but they failed to yield satisficing results. 
+
+For summarization, a pretrained hugging face model, 'distilbart-cnn-6-6' (by @sshleifer) is used. The model was trained on the CNN/DailyMail dataset. 
 
 <br>
 
