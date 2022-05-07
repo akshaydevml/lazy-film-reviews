@@ -20,7 +20,7 @@ There are so many moving parts in Spirited Away, from both a thematic and techni
 summary = """
 'Spirited Away' is at once one of the most accessible films to a Western audience. It's also a fine children's film, the kind that elicits a bond across repeat viewings and the passage of time. There are few high-wire acts in all of movie-related films as satisfying as that. The film is about a 10-year-old girl who finds herself in a relationship with the gods and finds herself at the center of her own life.
 """
-rouge_precision = 0.9
-rouge_f1 = 0.8
-input_count = 280
-summary_count = 76
+rouge_precision = 0.34
+rouge_f1 = 0.85
+input_count = 288
+summary_count = 71

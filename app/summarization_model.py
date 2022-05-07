@@ -8,6 +8,9 @@ from wordcloud import STOPWORDS, WordCloud
 model = 'en_core_web_md'
 nlp = spacy.load(model, disable=['parser', 'ner'])
 
+abstractive_summarizer = pipeline('summarization',
+                                  model="sshleifer/distilbart-cnn-6-6")
+
 
 def summary_cleaner(summary):
     summary = clean(summary, lower=False)
@@ -21,8 +24,6 @@ def summary_cleaner(summary):
 
 
 def abstractive_summarization(sample):
-    abstractive_summarizer = pipeline('summarization',
-                                      model="sshleifer/distilbart-cnn-6-6")
     abstract_summary = abstractive_summarizer(
         sample,
         min_length=100,
