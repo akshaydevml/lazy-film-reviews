@@ -108,7 +108,8 @@ def body():
         st.session_state.rouge_precision = config['defaults'][
             'rouge_precision']
         st.session_state.rouge_f1 = config['defaults']['rouge_f1']
-        st.session_state.wordcloud = wordcloud_gen(text)
+        st.session_state.wordcloud = wordcloud_gen(
+            config["defaults"]["review"])
         st.session_state.input_count = config['defaults']['input_count']
         st.session_state.summary_count = config['defaults']['summary_count']
 
@@ -131,7 +132,7 @@ def body():
     r1_c2.write("")
 
     r1_c2.markdown('##### Descriptive Terms')
-    fig = plt.figure(figsize=(3, 3), facecolor="#3a4064", edgecolor="#3a4064")
+    fig = plt.figure(figsize=(4, 4), facecolor="#3a4064", edgecolor="#3a4064")
     plt.axis("off")
     plt.tight_layout(pad=0)
     plt.imshow(st.session_state.wordcloud, interpolation='bilinear')

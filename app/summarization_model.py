@@ -64,11 +64,11 @@ def wordcloud_gen(sample):
 
     sample = " ".join(descriptive_list)
     stopwords = set(STOPWORDS)
-    wordcloud = WordCloud(width=300,
-                          height=200,
+    wordcloud = WordCloud(width=540,
+                          height=360,
                           background_color="#3a4064",
                           colormap="Pastel1",
                           stopwords=stopwords,
-                          min_font_size=8).generate(sample)
+                          min_font_size=9).generate(sample)
 
     return wordcloud
