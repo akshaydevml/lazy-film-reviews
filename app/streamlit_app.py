@@ -89,7 +89,7 @@ def body():
     st.caption(config["intro"]["caption"])
 
     with st.expander("What is this app?", expanded=False):
-        st.write(config["intro"]["description"])
+        st.markdown(config["intro"]["description"])
         st.write("")
     st.write("")
 
