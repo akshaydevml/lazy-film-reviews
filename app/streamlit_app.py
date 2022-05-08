@@ -3,6 +3,7 @@ from typing import Any, Dict
 import matplotlib.pyplot as plt
 import streamlit as st
 import toml
+from matplotlib.backends.backend_agg import RendererAgg
 from sentiment_model import sentiment_model
 from summarization_model import (abstractive_summarization, count_alpha_tokens,
                                  wordcloud_gen)
@@ -20,6 +21,8 @@ def load_config(config_file: str) -> Dict[Any, Any]:
 
 
 config = load_config("config/app_config.toml")
+
+_lock = RendererAgg.lock
 
 
 def sidebar():
@@ -132,11 +135,16 @@ def body():
     r1_c2.write("")
 
     r1_c2.markdown('##### Descriptive Terms')
-    fig = plt.figure(figsize=(4, 4), facecolor="#3a4064", edgecolor="#3a4064")
-    plt.axis("off")
-    plt.tight_layout(pad=0)
-    plt.imshow(st.session_state.wordcloud, interpolation='bilinear')
-    r1_c2.pyplot(fig, clear_figure=True)
+
+    with _lock:
+        fig = plt.figure(figsize=(4, 4),
+                         facecolor="#3a4064",
+                         edgecolor="#3a4064")
+        plt.axis("off")
+        plt.tight_layout(pad=0)
+        plt.imshow(st.session_state.wordcloud, interpolation='bilinear')
+        r1_c2.pyplot(fig, clear_figure=True)
+
     r1_c2.write("")
 
     r2_c1.metric("Rouge F1 Score", st.session_state.rouge_f1)
