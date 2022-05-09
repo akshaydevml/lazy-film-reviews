@@ -3,7 +3,8 @@ spacy==3.2.2
 https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.2.0/en_core_web_md-3.2.0.tar.gz#egg=en_core_web_md
 matplotlib
 wordcloud
-transformers
+torch
+transformers[torch]
 rouge
 scikit-learn
 tqdm
@@ -11,5 +12,3 @@ clean-text
 toml
 click==8.0.4
 typer==0.4.0
-torch
-torchvision

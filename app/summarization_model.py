@@ -1,15 +1,24 @@
 import spacy
+import streamlit as st
 from cleantext import clean
 from rouge import Rouge
 from spacy.attrs import IS_ALPHA
 from transformers import pipeline
 from wordcloud import STOPWORDS, WordCloud
 
-model = 'en_core_web_md'
-nlp = spacy.load(model, disable=['parser', 'ner'])
 
-abstractive_summarizer = pipeline('summarization',
-                                  model="sshleifer/distilbart-cnn-6-6")
+def load_spacy_model():
+    model = 'en_core_web_md'
+    return spacy.load(model, disable=['parser', 'ner'])
+
+
+nlp = load_spacy_model()
+
+
+@st.cache(hash_funcs={"tokenizers.Tokenizer": lambda _: None},
+          allow_output_mutation=True)
+def load_summarizer_model():
+    return pipeline('summarization', model="sshleifer/distilbart-cnn-6-6")
 
 
 def summary_cleaner(summary):
@@ -24,12 +33,13 @@ def summary_cleaner(summary):
 
 
 def abstractive_summarization(sample):
-    abstract_summary = abstractive_summarizer(
+    abstractive_summarizer = load_summarizer_model()
+    summary = abstractive_summarizer(
         sample,
         min_length=100,
         max_length=120,
     )
-    summary = abstract_summary[0].get('summary_text')
+    summary = summary[0].get('summary_text')
     summary = summary_cleaner(summary)
     rouge = Rouge()
     rouge_score = rouge.get_scores(summary, sample)
