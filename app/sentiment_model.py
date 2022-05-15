@@ -1,31 +1,30 @@
-import os
-import pickle
-
-import streamlit as st
-from app_utils import download_weights
-
-weights_file = "movie_sentiment.pkl"
-url = "https://github.com/akshaydevml/lazy-film-reviews/releases/download"\
-        "/v0.0/movie_sentiment.pkl"
-
-if not os.path.exists(weights_file):
-    download_weights(url, ".")
+import torch
+from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 
-@st.cache()
 def load_sentiment_model():
-    try:
-        return pickle.load(open(weights_file, 'rb'))
-    except Exception as e:
-        print("Couldn't read model weights:", e)
-        print("Downloading weights again.")
-        download_weights(url, ".")
-        return pickle.load(open(weights_file, 'rb'))
+    tokenizer = AutoTokenizer.from_pretrained(
+        "Sreevishnu/funnel-transformer-small-imdb", use_fast=True)
+    model = AutoModelForSequenceClassification.from_pretrained(
+        "Sreevishnu/funnel-transformer-small-imdb",
+        num_labels=2,
+        max_position_embeddings=1024)
+
+    return model, tokenizer
+
+
+model, tokenizer = load_sentiment_model()
+
+
+def get_prediction(review, tokenizer, model):
+    inputs = tokenizer(review, return_tensors='pt')
+    with torch.no_grad():
+        predictions = model(**inputs)[0].numpy()
+    top_prediction = predictions.argmax().item()
+    return "positive" if top_prediction == 1 else "negative"
 
 
 def sentiment_model(sample):
-    sentiment_analysis = load_sentiment_model()
-    prediction = sentiment_analysis.predict([sample])
-    prediction = str(prediction[0])
+    prediction = get_prediction(sample, tokenizer, model)
 
     return prediction

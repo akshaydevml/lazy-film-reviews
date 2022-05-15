@@ -8,11 +8,6 @@ from sentiment_model import sentiment_model
 from summarization_model import (abstractive_summarization, count_alpha_tokens,
                                  wordcloud_gen)
 
-st.set_page_config(page_title='Lazy Film Summaries',
-                   page_icon="assets/popcorn-favicon.png",
-                   layout="wide",
-                   initial_sidebar_state="expanded")
-
 
 @st.cache(allow_output_mutation=True, ttl=300)
 def load_config(config_file: str) -> Dict[Any, Any]:

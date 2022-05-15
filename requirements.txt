@@ -1,9 +1,9 @@
 streamlit==1.9.0
+https://download.pytorch.org/whl/cpu/torch-1.11.0%2Bcpu-cp38-cp38-linux_x86_64.whl
 spacy==3.2.2
 https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.2.0/en_core_web_md-3.2.0.tar.gz#egg=en_core_web_md
 matplotlib
 wordcloud
-torch
 transformers[torch]
 rouge
 scikit-learn

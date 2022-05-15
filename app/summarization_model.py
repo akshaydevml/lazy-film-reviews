@@ -1,5 +1,4 @@
 import spacy
-import streamlit as st
 from cleantext import clean
 from rouge import Rouge
 from spacy.attrs import IS_ALPHA
@@ -12,13 +11,12 @@ def load_spacy_model():
     return spacy.load(model, disable=['parser', 'ner'])
 
 
-nlp = load_spacy_model()
-
-
-@st.cache(hash_funcs={"tokenizers.Tokenizer": lambda _: None},
-          allow_output_mutation=True)
 def load_summarizer_model():
     return pipeline('summarization', model="sshleifer/distilbart-cnn-6-6")
+
+
+nlp = load_spacy_model()
+abstractive_summarizer = load_summarizer_model()
 
 
 def summary_cleaner(summary):
@@ -33,7 +31,7 @@ def summary_cleaner(summary):
 
 
 def abstractive_summarization(sample):
-    abstractive_summarizer = load_summarizer_model()
+
     summary = abstractive_summarizer(
         sample,
         min_length=100,
